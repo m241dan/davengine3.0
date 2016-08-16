@@ -8,7 +8,7 @@ The Mud Engine is an event driven TCP server with the goal of sending visually-i
 
 #Installation
 
-This is setup to run as just a simple Lua 5.3 script on __Linux__ or __Mac__ with all the libs included except for [luasocket](https://github.com/diegonehab/luasocket). You will need to have luasocket installed on your server.
+This is setup to run as just a simple Lua 5.3 script on __Linux__ or __Mac__ with all the libs included except for [luasocket](https://github.com/diegonehab/luasocket). You will need to get [luasocket](https://github.com/diegonehab/luasocket) setup on your own. 
 
 __HOWEVER:__ For those __NOT__ running this on *Ubuntu 14.04*, you may need to compile your own [time.so](https://github.com/m241dan/lua-time) and [lfs.so](https://github.com/keplerproject/luafilesystem).
 
