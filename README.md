@@ -10,4 +10,4 @@ The Engine is an event driven TCP server with the goal of sending visually impai
 
 This is setup to run as just a simple Lua script with all the libs included...
 
-__HOWEVER:__ For those running this on *Ubuntu 14.04*, you may need to compile your own [time.so](https://github.com/m241dan/lua-time) and [lfs.so](https://github.com/keplerproject/luafilesystem).
+__HOWEVER:__ For those __NOT__ running this on *Ubuntu 14.04*, you may need to compile your own [time.so](https://github.com/m241dan/lua-time) and [lfs.so](https://github.com/keplerproject/luafilesystem).
