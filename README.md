@@ -1,5 +1,5 @@
 #Davengine 3.0
-#A Mud Engine written in Lua by Daniel R. Koris
+A Mud Engine written in Lua by Daniel R. Koris
 
 This is a third version of the always-in-development Davengine Mud Engine. This Engine is born out of the pairing of two my passions: Muds and Lua.
 
