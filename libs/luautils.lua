@@ -1,5 +1,3 @@
-print( package.path )
-local test = require( "test" )
 local LFS = require( "lfs" )
 
 local utils = {}
