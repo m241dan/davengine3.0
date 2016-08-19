@@ -32,10 +32,15 @@ end
 -- DR:new() --
 --------------
 -- creating a new container
-function DR:new( thread )
+function DR:new( arg )
    -- create table and set its metatable to the library
    local dr = {}
    setmetatable( dr, self )
+
+   if( arg ) then
+      dr:wrap( arg )
+   end
+
    return dr
 end
 -- returns a new DR object
