@@ -38,8 +38,8 @@ function bootServer( port )
    print( "Booting the TCP Server..." )
    server = Server:new( port )
    server:start()
-   server.accept_event = Event:new( Event.newAcceptNew, ACCEPT_INTERVAL, { server }, "Accepting new connections." )
-   server.poll_event = Event:new( Event.newPollEvent, POLL_INTERVAL, { server }, "Polling the Clients connected to the server." ) -- Every 1/10th of a second
+   server.accept_event = Event:new( Event.newAcceptNew(), ACCEPT_INTERVAL, { server }, "Accepting new connections." )
+   server.poll_event = Event:new( Event.newPollEvent(), POLL_INTERVAL, { server }, "Polling the Clients connected to the server." ) -- Every 1/10th of a second
 
    EventQueue.insert( server.accept_event )
    EventQueue.insert( server.poll_event )
