@@ -2,6 +2,15 @@ local LFS = require( "lfs" )
 
 local utils = {}
 
+function utils.fileExists( path )
+   local f = io.open( path, "r" )
+   if( not f ) then
+      return false
+   end
+   f:close()
+   return true
+end;
+
 function utils.requireCheck( rpath )
    if( not rpath ) then
       error( "requireCheck failed: nil path", 1 )
