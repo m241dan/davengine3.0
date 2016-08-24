@@ -25,6 +25,7 @@ POLL_INTERVAL = EventQueue.second / 10
 
 function main()
    print( "DavEngine starting..." )
+   loadEvents( "events/server/" )
    bootServer( SERVER_PORT )
 
    print( "Starting the Event Queue" )
@@ -38,11 +39,16 @@ function bootServer( port )
    print( "Booting the TCP Server..." )
    server = Server:new( port )
    server:start()
-   server.accept_event = Event:new( Events.newAcceptEvent(), ACCEPT_INTERVAL, { server }, "Accepting new connections." )
-   server.poll_event = Event:new( Events.newPollEvent(), POLL_INTERVAL, { server }, "Polling the Clients connected to the server." ) -- Every 1/10th of a second
+   server.accept_event = Event:new( Events.getEvent( "accept event" ), ACCEPT_INTERVAL, { server }, "Accepting new connections." )
+   server.poll_event = Event:new( Events.getEvent( "poll event" ), POLL_INTERVAL, { server }, "Polling the Clients connected to the server." ) -- Every 1/10th of a second
 
    EventQueue.insert( server.accept_event )
    EventQueue.insert( server.poll_event )
+end;
+
+function loadEvents( path )
+   print( "Loading events from: " .. path )
+   Events.init( path )
 end;
 
 main()
