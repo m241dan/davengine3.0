@@ -8,7 +8,7 @@ function E.init( path )
    --load events from path given, will load all _event.lua files
    for entry in LFS.dir( path ) do
       if( entry ~= "." and entry ~= ".." and entry:find( "_event.lua" ) ) then
-         local name, func = dofile( path .. "/" .. entry );
+         local name, func = dofile( path ..  entry );
          if( type( name ) ~= "string" ) then
             print( "Event file: " .. entry .. " does not return a string as its first argument.\n" )
             goto next;
