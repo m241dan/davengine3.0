@@ -1,15 +1,8 @@
 return "accept event", function( server )
-   local nc
+   local new_client = server:accept()
 
-   nc = server:accept()
-   if( nc ) then
-      local new_dm = DataManager:new( nc )
-      local data = Data:new()
-
-      data:setInterp( "interpreters/new_connection.lua" )
-      new_dm:AASData( data );
-      new_dm:setupInterp( data );
-
+   if( new_client ) then
+      ServerUtils.setupNewConnection( new_client )
       DataManager.dataDump()
    end
 

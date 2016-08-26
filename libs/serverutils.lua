@@ -6,7 +6,8 @@
 local S = {}
 
 function S.setupNewConnection( client )
-   local new_dm = DataManager:new( nc )
+
+   local new_dm = DataManager:new( client )
    local data = Data:new()
 
    data:setInterp( NEW_CONNECT_INTERP )

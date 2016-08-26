@@ -17,11 +17,13 @@ DataManager = require( "datamanager" )
 Data = require( "data" )
 Time = require( "time" )
 LFS = require( "lfs" )
-
+ServerUtils = require( "serverutils" )
+Posix = require( "posix" )
 
 SERVER_PORT = 6500
 ACCEPT_INTERVAL = EventQueue.second
 POLL_INTERVAL = EventQueue.second / 10
+NEW_CONNECT_INTERP = "interpreters/new_connection.lua"
 
 function main()
    print( "DavEngine starting..." )
