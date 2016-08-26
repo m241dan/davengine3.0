@@ -5,8 +5,10 @@ local sub_i = {}
 sub_i[1] = function()
    if( input:lower() == "save" ) then
       d:save()
+      con:send( "Saved!\r\n" )
    else
       d.name = input
+      con:send( "Name set to: " .. d.name .. "\r\n" )
    end
 end;
 
@@ -18,9 +20,7 @@ local function interpreter( datamanager, data )
    state = 1
    while( 1 ) do
       input = coroutine.yield()
-      if( input:lower() == "save" ) then
-         data:save()
-      end
+      sub_i[state]() -- sub interpreter
    end
 end
 
