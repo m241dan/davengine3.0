@@ -24,6 +24,7 @@ SERVER_PORT = 6500
 ACCEPT_INTERVAL = EventQueue.second
 POLL_INTERVAL = EventQueue.second / 10
 NEW_CONNECT_INTERP = "interpreters/new_connection.lua"
+ACCOUNT_INTERP = "interpreters/account_interp.lua"
 
 Signal.signal( Signal.SIGINT, function()
    if( not server ) then return; end
