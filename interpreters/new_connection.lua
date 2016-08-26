@@ -3,12 +3,13 @@ local input, con, dm, d, state
 local sub_i = {}
 
 sub_i[1] = function()
-   local path = Account.save_path .. input .. ".lua"
+   local path = Account.save_loc .. input .. ".lua"
    if( Luatils.fileExists( path ) ) then
       con:send( "\r\nWhat is your password?: " )
       d.account = Account.load( path )
       state = 2
    else
+      print( "Getting to the proper if statement..." )
       con:send( "\r\nNew account? Enter a password for the new account!: " )
       d.entered_name = input
       state = 3
@@ -51,7 +52,6 @@ local function interpreter( datamanager, data )
       input = coroutine.yield()
       sub_i[state]() -- sub interpreter
    end
-   print( "I'M DYING!!!\r\n" )
 end
 
 return coroutine.create( interpreter )

@@ -13,8 +13,8 @@ function A:new( name, passwd )
 
    -- init some defaults
    a.name = name
+   a.save_name = name
    a.passwd = passwd
-
    return a
 end;
 
