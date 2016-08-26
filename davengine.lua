@@ -18,12 +18,18 @@ Data = require( "data" )
 Time = require( "time" )
 LFS = require( "lfs" )
 ServerUtils = require( "serverutils" )
-Posix = require( "posix" )
+Signal = require( "posix.signal" )
 
 SERVER_PORT = 6500
 ACCEPT_INTERVAL = EventQueue.second
 POLL_INTERVAL = EventQueue.second / 10
 NEW_CONNECT_INTERP = "interpreters/new_connection.lua"
+
+Signal.signal( Signal.SIGINT, function()
+   if( not server ) then return; end
+   server:close()
+   EventQueue.stop()
+end )
 
 function main()
    print( "DavEngine starting..." )
