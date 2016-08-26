@@ -25,7 +25,7 @@ DR.__call = function( t, ... )
       return
    end
    -- make the call, or in this case the resume and return the results
-   local result = coroutine.resume( t.thread, ... )
+   local result = assert( coroutine.resume( t.thread, ... ) )
    return result
 end
 --------------
