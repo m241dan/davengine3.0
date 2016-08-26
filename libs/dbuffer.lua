@@ -8,6 +8,33 @@ local B = {}
 TOP_FAVOR = 1
 BOT_FAVOR = 2
 MID_FAVOR = 3
+COLOR_CHAR = "#"
+
+local color_tab = {
+   --reset
+   n = string.char(27) .. "[0m",
+   -- grey / dark grey
+   z = string.char(27) .. "[0;37m",
+   Z = string.char(27) .. "[1;37m",
+   -- cyan
+   c = string.char(27) .. "[0;36m",
+   C = string.char(27) .. "[1;36m",
+   -- megenta
+   m = string.char(27) .. "[0;35m",
+   M = string.char(27) .. "[1;35m",
+   -- blue
+   b = string.char(27) .. "[0;34m",
+   B = string.char(27) .. "[1;34m",
+   -- yellow
+   y = string.char(27) .. "[0;33m",
+   Y = string.char(27) .. "[1;33m",
+   -- green
+   g = string.char(27) .. "[0;32m",
+   G = string.char(27) .. "[1;32m",
+   -- red
+   r = string.char(27) .. "[0;31m",
+   R = string.char(27) .. "[1;31m",
+}
 
 ---------------------------------------------
 -- Davenge Buffer Helper Methods           --
@@ -17,8 +44,7 @@ MID_FAVOR = 3
 -- get substring at desired length, take into account colors and expand until we get the false length created by the color tags
 local function getsubstr_color( str, length, ecc ) -- ecc expected color count
    local substr = str:sub( 1, length )
-   local _ ,cc = substr:gsub( "#.", "" )
-   print( string.format( "str = %s expectation = %d",substr, ecc ) )
+   local _ ,cc = substr:gsub( COLOR_CHAR .. ".", "" )
    if( cc ~= ecc ) then
       return getsubstr_color( str, ( length + cc * 2 ) - 1, cc )
    end
@@ -52,7 +78,7 @@ function B:parse( str )
 
    repeat
       ::parsestart::
-      if( t[i] == '#' ) then -- test for color, if color expand c by two but also expand our artificial width by two, inc by two
+      if( t[i] == COLOR_CHAR ) then -- test for color, if color expand c by two but also expand our artificial width by two, inc by two
          i = i + 2
          aw = aw + 2 
          c = c + 2
@@ -162,6 +188,13 @@ function B.buffers_to_string( table_of_buffers, pattern )
    end
 
    return table.concat( output, '\n' )
+end
+
+function B.colorize( str )
+   str = str:gsub( COLOR_CHAR .. "(.)", function( c )
+      return color_tab[c] or c
+   end )
+   return str .. string.char(27) .. "[0m"
 end
 
 return B
