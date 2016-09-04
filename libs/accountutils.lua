@@ -17,4 +17,4 @@ function A.connectAccount( account, dm )
    dm:setupInterp( account )
 end;
 
-return S
+return A
