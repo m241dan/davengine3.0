@@ -2,7 +2,7 @@ local input, con
 
 local function interpreter( datamanager, data )
    con = datamanager.socket.connection
-   con:send( "\r\nSuccessful account connection made!" )
+   con:send( "\r\nSuccessful account connection made!\r\n" )
 
    while( 1 ) do
       input = coroutine.yield()
