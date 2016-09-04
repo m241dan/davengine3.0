@@ -3,13 +3,20 @@ local input, con, dm, d, state
 local sub_i = {}
 
 sub_i[1] = function()
+   input = string.capitalize( input )
    local path = Account.save_loc .. input .. ".lua"
-   if( Luatils.fileExists( path ) ) then
+   -- start with if its already connected???
+   d.account = Account.by_name[input]
+   if( d.account ) then
+      con:send( "\r\nWhat is your password?: " )
+      state = 4
+   -- then loading from file
+   elseif( Luatils.fileExists( path ) ) then
       con:send( "\r\nWhat is your password?: " )
       d.account = Account.load( path )
       state = 2
+   -- then creating a new one!    
    else
-      print( "Getting to the proper if statement..." )
       con:send( "\r\nNew account? Enter a password for the new account!: " )
       d.entered_name = input
       state = 3
@@ -34,6 +41,25 @@ sub_i[3] = function()
       local new_account = Account:new( d.entered_name, d.entered_pw )
       AccountUtils.setupNewAccount( new_connect, dm )
       ServerUtils.cleanUpNewConnection( dm, d )
+   end
+end;
+
+sub_i[4] = function()
+   if( d.account.passwd == LuaSha.hash256( input ) ) then
+      old_dm = DataManager.by_data[d.account]
+
+      -- handle case one, the account was hanging
+      if( not old_dm ) then
+         AccountUtils.connectAccount( d.account, dm )
+         ServerUtils.cleanUpNewConnect( dm, d )
+      -- handle case two, this account has a DM already...
+      else
+         AccountUtils.handleTakeOver( d.account, d, dm, old_dm )
+         -- no need for cleanUpNewConnect, handleTakeOver deals with this because things vary with it based on circumstance, order may matter
+      end
+                   
+   else
+      con:send( "\r\nWrong password. Try again: " )
    end
 end;
 
