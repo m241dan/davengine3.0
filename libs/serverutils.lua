@@ -6,7 +6,6 @@
 local S = {}
 
 function S.setupNewConnection( client )
-
    local new_dm = DataManager:new( client )
    local data = Data:new()
 
