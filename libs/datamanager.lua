@@ -57,8 +57,28 @@ end
 
 --cleanup method(technically we let the garbage collector do the deleting)
 function DM:delete()
-   DM.all[table.getKey( DM.all, self )] = nil	-- removing itself from the masterlist should trigger garbage collection
-   -- may be more added under this later... not sure yet
+   local index
+   for i, dm in ipairs( DM.all ) do
+      if( dm == self ) then
+         index = i
+         break
+      end
+   end
+   table.remove( DM.all, i )
+
+   -- remove itself from socket lists
+   for i, dm in pairs( DM.by_socket ) do
+      if( dm == self ) then
+         DM.by_socket[i] = nil
+      end
+   end
+   -- remove itself from data lists
+   for i, dm in pairs( DM.by_data ) do
+      if( dm == self ) then
+         DM.by_data[i] = nil
+      end
+   end
+   self = nil
 end
 
 -------------------------
