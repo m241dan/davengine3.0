@@ -48,6 +48,12 @@ function table.contains( table, value )
    return false
 end
 
+function string.capitalize( string )
+   string = string:lower()
+   string = string:gsub( "(%l)(%w*)", function( a,b ) return a:upper() .. b; end )
+   return string
+end;
+
 local function serialize( data, indent_amount )
    if( type( data ) == "string" ) then
       return string.format( "%q", data ) 
