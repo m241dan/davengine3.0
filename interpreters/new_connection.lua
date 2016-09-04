@@ -18,10 +18,8 @@ end;
 
 sub_i[2] = function()
    if( d.account.passwd == LuaSha.hash256( input ) ) then
-      dm:AASData( d.account )
-      dm:setupInterp( d.account )
-      d.account = nil -- not sure this is needed
-      dm:remData( d )
+      AccountUtils.connectAccount( d.account, dm )
+      ServerUtils.cleanUpNewConnection( dm, d )
    else
       con:send( "\r\nWrong password. Try again: " )
    end
@@ -34,11 +32,8 @@ sub_i[3] = function()
       con:send( "\r\nPasswords did not match!\r\nEnter a password for the new account!: " )
    else
       local new_account = Account:new( d.entered_name, d.entered_pw )
-      new_account:setInterp( ACCOUNT_INTERP )
-      dm:AASData( new_account )
-      dm:setupInterp( new_account )
-      new_account:save()
-     
+      AccountUtils.setupNewAccount( new_connect, dm )
+      ServerUtils.cleanUpNewConnection( dm, d )
    end
 end;
 
