@@ -2,6 +2,7 @@ local A = Data:raw()
 
 A.all = {}
 A.by_name = {}
+
 A.__index = A
 A.type = "account"
 A.interp_path = "interpreters/account_interp.lua"
