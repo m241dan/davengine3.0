@@ -15,6 +15,10 @@ function S.setupNewConnection( client )
    new_dm:setupInterp( data );
 end;
 
+function S.cleanUpNewConnection( dm, d )
+   dm:remData( d )
+   d:delete()
+end;
 
 
 return S
